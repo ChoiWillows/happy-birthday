@@ -41,6 +41,60 @@ body:before{
     z-index:1;
 }
 
+#shooting-stars-container{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    z-index:1;
+    overflow:hidden;
+}
+
+.shooting-star{
+    position:absolute;
+    height:2px;
+    background:linear-gradient(-45deg, rgba(96, 165, 250, 1), rgba(255, 255, 255, 0));
+    filter:drop-shadow(0 0 6px rgba(96, 165, 250, 0.9));
+    animation:tail 3s ease-in-out infinite, shooting 3s ease-in-out infinite;
+    opacity:0;
+}
+
+.shooting-star::before{
+    content:'';
+    position:absolute;
+    top:calc(50% - 1px);
+    right:0;
+    height:2px;
+    background:linear-gradient(-45deg, rgba(255, 255, 255, 0), rgba(96, 165, 250, 1), rgba(255, 255, 255, 0));
+    transform:translateX(50%) rotate(45deg);
+    border-radius:100%;
+    animation:shining 3s ease-in-out infinite;
+}
+
+@keyframes tail{
+    0%{ width:0; }
+    30%{ width:120px; }
+    100%{ width:0; }
+}
+
+@keyframes shining{
+    0%{ width:0; }
+    50%{ width:15px; }
+    100%{ width:0; }
+}
+
+@keyframes shooting{
+    0%{
+        transform:translateX(0) translateY(0) rotate(-45deg);
+        opacity:1;
+    }
+    100%{
+        transform:translateX(-600px) translateY(600px) rotate(-45deg);
+        opacity:0;
+    }
+}
+
 #wave-canvas{
     position:absolute;
     inset:0;
@@ -705,6 +759,14 @@ body:before{
     100%{transform:translateY(0) rotate(-360deg)}
 }
 
+.fade-in{
+    animation:fadeIn .6s ease-out forwards;
+}
+
+.bounce-out{
+    animation:bounceOut .6s ease-in forwards;
+}
+
 @keyframes fadeIn{
     0%{
         opacity:0;
@@ -797,6 +859,8 @@ body:before{
 </head>
 
 <body>
+
+<div id="shooting-stars-container"></div>
 
 <!-- BACKGROUND MUSIC SOURCE -->
 <audio id="bg-music" src="./yung_kai_blue_official_music_video.mp3" preload="auto" loop></audio>
@@ -1031,6 +1095,30 @@ Marth Hale
 </div>
 
 <script>
+
+/* ==========================================
+   SHOOTING STARS GENERATOR
+========================================== */
+
+function initShootingStars(){
+    const container = document.getElementById('shooting-stars-container');
+    const starCount = 6;
+
+    for(let i = 0; i < starCount; i++){
+        const star = document.createElement('div');
+        star.className = 'shooting-star';
+        
+        star.style.top = Math.random() * 50 + '%';
+        star.style.right = Math.random() * 60 + '%';
+        star.style.animationDelay = (Math.random() * 4) + 's';
+        star.style.animationDuration = (Math.random() * 2 + 2.5) + 's';
+        
+        container.appendChild(star);
+    }
+}
+
+initShootingStars();
+
 
 /* ==========================================
    ELEMENTS
@@ -2043,7 +2131,6 @@ playBtn.addEventListener(
     'click',
     ()=>{
 
-        /* START THE BACKGROUND MUSIC */
         startMusic();
 
         playBtn.style.opacity =
