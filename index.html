@@ -41,6 +41,37 @@ body:before{
     z-index:1;
 }
 
+/* Ambient Glowing Background Orbs */
+.bg-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.45;
+    animation: orbPulse 8s ease-in-out infinite alternate;
+}
+.orb-1 {
+    top: 10%;
+    left: 20%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, #3b82f6 0%, transparent 70%);
+}
+.orb-2 {
+    bottom: 15%;
+    right: 15%;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, #1d4ed8 0%, transparent 70%);
+    animation-delay: -4s;
+}
+
+@keyframes orbPulse {
+    0% { transform: scale(1) translateY(0); opacity: 0.35; }
+    100% { transform: scale(1.25) translateY(-20px); opacity: 0.6; }
+}
+
 #shooting-stars-container{
     position:absolute;
     inset:0;
@@ -55,7 +86,7 @@ body:before{
     position:absolute;
     height:2px;
     background:linear-gradient(-45deg, rgba(147, 197, 253, 1), rgba(255, 255, 255, 0));
-    filter:drop-shadow(0 0 8px rgba(147, 197, 253, 0.9));
+    filter:drop-shadow(0 0 10px rgba(147, 197, 253, 1)) drop-shadow(0 0 20px rgba(59, 130, 246, 0.8));
     animation:tail 3s ease-in-out infinite, shooting 3s ease-in-out infinite;
     opacity:0;
 }
@@ -63,10 +94,10 @@ body:before{
 .shooting-star::before{
     content:'';
     position:absolute;
-    top:calc(50% - 1px);
+    top:calc(50% - 1.5px);
     right:0;
-    height:2px;
-    background:linear-gradient(-45deg, rgba(255, 255, 255, 0), rgba(147, 197, 253, 1), rgba(255, 255, 255, 0));
+    height:3px;
+    background:linear-gradient(-45deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
     transform:translateX(50%) rotate(45deg);
     border-radius:100%;
     animation:shining 3s ease-in-out infinite;
@@ -74,13 +105,13 @@ body:before{
 
 @keyframes tail{
     0%{ width:0; }
-    30%{ width:150px; }
+    30%{ width:180px; }
     100%{ width:0; }
 }
 
 @keyframes shining{
     0%{ width:0; }
-    50%{ width:20px; }
+    50%{ width:25px; }
     100%{ width:0; }
 }
 
@@ -121,7 +152,7 @@ body:before{
     white-space:nowrap;
     user-select:none;
     animation:floatAndFade 5s ease-out forwards;
-    text-shadow:0 0 10px rgba(45,95,175,.8);
+    text-shadow:0 0 12px rgba(45,95,175,.9), 0 0 20px rgba(96,165,250,.5);
 }
 
 #play-btn{
@@ -133,7 +164,7 @@ body:before{
     border:2px solid #2563eb;
     border-radius:50px;
     cursor:pointer;
-    box-shadow:0 0 25px rgba(37,99,235,.3);
+    box-shadow:0 0 25px rgba(37,99,235,.3), inset 0 0 15px rgba(59,130,246,.2);
     transition:.25s;
     z-index:20;
     font-family:'Fredoka',sans-serif;
@@ -141,7 +172,7 @@ body:before{
 
 #play-btn:hover{
     transform:scale(1.08);
-    box-shadow:0 0 35px rgba(37,99,235,.6);
+    box-shadow:0 0 35px rgba(37,99,235,.7), inset 0 0 20px rgba(96,165,250,.4);
 }
 
 #watermark{
@@ -151,7 +182,7 @@ body:before{
     opacity:0;
     position:absolute;
     pointer-events:none;
-    text-shadow:0 0 25px rgba(59,130,246,.7);
+    text-shadow:0 0 25px rgba(59,130,246,.7), 0 0 50px rgba(29,78,216,.5);
     transform:scale(.8);
     z-index:5;
 }
@@ -203,7 +234,7 @@ body:before{
     font-size:4.5rem;
     margin-bottom:20px;
     color:#60a5fa;
-    text-shadow:0 0 20px rgba(96,165,250,.5);
+    text-shadow:0 0 20px rgba(96,165,250,.6), 0 0 40px rgba(37,99,235,.4);
 }
 
 .greeting-container p{
@@ -228,7 +259,7 @@ body:before{
     border-radius:50%;
     display:inline-block;
     animation:bounceDots 1.4s infinite ease-in-out both;
-    box-shadow:0 0 10px rgba(59,130,246,.6);
+    box-shadow:0 0 10px rgba(59,130,246,.8);
 }
 
 .dots-loader span:nth-child(1){animation-delay:-.32s}
@@ -238,7 +269,7 @@ body:before{
     background:rgba(15,23,42,.95);
     padding:35px 30px;
     border-radius:28px;
-    box-shadow:0 12px 35px rgba(0,0,0,.7),0 0 20px rgba(37,99,235,.25);
+    box-shadow:0 12px 35px rgba(0,0,0,.7),0 0 25px rgba(37,99,235,.35);
     max-width:380px;
     width:90%;
     color:#f1f5f9;
@@ -252,6 +283,7 @@ body:before{
     margin-bottom:8px;
     display:inline-block;
     animation:pulseCute 2s infinite;
+    filter:drop-shadow(0 0 10px rgba(59,130,246,.6));
 }
 
 .password-card h2{
@@ -285,12 +317,13 @@ body:before{
     color:#f8fafc;
     background:#0f172a;
     font-family:'Fredoka',sans-serif;
+    transition: all .2s;
 }
 
 .pwd-input:focus{
     border-color:#3b82f6;
     transform:scale(1.02);
-    box-shadow:0 0 15px rgba(59,130,246,.3);
+    box-shadow:0 0 18px rgba(59,130,246,.4);
 }
 
 .pwd-btn,
@@ -358,7 +391,7 @@ body:before{
     background:#172554;
     border-bottom-left-radius:12px;
     border-bottom-right-radius:12px;
-    box-shadow:0 15px 35px rgba(0,0,0,.7),0 0 25px rgba(30,58,138,.3);
+    box-shadow:0 15px 35px rgba(0,0,0,.7),0 0 30px rgba(30,58,138,.4);
     cursor:pointer;
     margin:auto;
     z-index:25;
@@ -409,6 +442,7 @@ body:before{
     font-size:2rem;
     z-index:6;
     transition:.4s;
+    filter:drop-shadow(0 0 8px rgba(96,165,250,.6));
 }
 
 .envelope-wrapper.open .heart-seal{
@@ -451,7 +485,7 @@ body:before{
     padding:45px 50px!important;
     filter:
         drop-shadow(0 20px 40px rgba(0,0,0,.7))
-        drop-shadow(0 0 30px rgba(37,99,235,.3))!important;
+        drop-shadow(0 0 35px rgba(37,99,235,.4))!important;
 }
 
 .paper-content{
@@ -586,7 +620,7 @@ body:before{
     height:48px;
     background:linear-gradient(135deg,#2563eb,#1d4ed8);
     border-radius:50%;
-    box-shadow:0 4px 15px rgba(29,78,216,.4);
+    box-shadow:0 4px 15px rgba(29,78,216,.5), 0 0 10px rgba(96,165,250,.4);
     display:flex;
     align-items:center;
     justify-content:center;
@@ -609,7 +643,7 @@ body:before{
     z-index:300;
     pointer-events:auto;
     user-select:none;
-    filter:drop-shadow(0 6px 15px rgba(0,0,0,.5));
+    filter:drop-shadow(0 6px 15px rgba(0,0,0,.5)) drop-shadow(0 0 8px rgba(59,130,246,.3));
     cursor:grab;
     width:80px;
     height:80px;
@@ -659,6 +693,24 @@ body:before{
     pointer-events:none;
     z-index:105;
     animation:floatEmber 4s ease-in infinite;
+}
+
+/* Drag Sparkle Effect */
+.drag-sparkle {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: #93c5fd;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #60a5fa, 0 0 15px #3b82f6;
+    pointer-events: none;
+    z-index: 299;
+    animation: sparkleFade 0.8s ease-out forwards;
+}
+
+@keyframes sparkleFade {
+    0% { transform: scale(1) translateY(0); opacity: 1; }
+    100% { transform: scale(0.2) translateY(-25px); opacity: 0; }
 }
 
 .shake{
@@ -859,6 +911,10 @@ body:before{
 </head>
 
 <body>
+
+<!-- Background Ambient Glowing Orbs -->
+<div class="bg-orb orb-1"></div>
+<div class="bg-orb orb-2"></div>
 
 <div id="shooting-stars-container"></div>
 
@@ -1102,7 +1158,7 @@ Marth Hale
 
 function initShootingStars(){
     const container = document.getElementById('shooting-stars-container');
-    const starCount = 12;
+    const starCount = 14;
 
     for(let i = 0; i < starCount; i++){
         const star = document.createElement('div');
@@ -1381,8 +1437,18 @@ function spawnEmber(){
 
 
 /* ==========================================
-   DRAG CHARACTERS
+   DRAG CHARACTERS WITH SPARKLE EFFECT
 ========================================== */
+
+function createDragSparkle(x, y) {
+    const sparkle = document.createElement('div');
+    sparkle.className = 'drag-sparkle';
+    sparkle.style.left = x + 'px';
+    sparkle.style.top = y + 'px';
+    document.body.appendChild(sparkle);
+
+    setTimeout(() => sparkle.remove(), 800);
+}
 
 document
 .querySelectorAll('.cartoon-character')
@@ -1444,6 +1510,10 @@ document
 
         el.style.top =
             origY + y - startY + "px";
+
+        if(Math.random() > 0.4) {
+            createDragSparkle(x, y);
+        }
 
     }
 
